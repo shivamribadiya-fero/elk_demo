@@ -18,18 +18,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.8.10"
-  #   - name: Setup SSH
-  # You may pin to the exact commit or the version.
-  # uses: kielabokkie/ssh-key-and-known-hosts-action@e5c88dc608851beb90a7a78c7d5d2ef6f62f9860
-#  uses: kielabokkie/ssh-key-and-known-hosts-action@v1.2.0
- # with:
-    # Private key required to access the host
- #   ssh-private-key: ${{secrets.SSH_PRIVATE_KEY}}
-    # Hostname or IP to add to the known hosts file
-  #  ssh-host: ${{secrets.SSH_HOST}}
-    # Port for key-scanning the server
-   # ssh-port: ${{secrets.SSH_PORT}}
-    
+    - name: ls -a via ssh
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+       command: ls -a
+       host: ${{ secrets.HOST_IP }}
+       username: faststagingtiavm
+       privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
+
     #script: |
      # source /home/faststagingtiavm/.virtualenvs/elkdemoenv/bin/activate
       #cd ~/elk_demo
