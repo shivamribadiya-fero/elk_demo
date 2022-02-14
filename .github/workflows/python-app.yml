@@ -35,6 +35,3 @@ jobs:
       #cd ~/elk_demo
       #git checkout -f 
      # git pull 
-      
-      
-        python -m pip install -r req.txt 
