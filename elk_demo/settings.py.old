@@ -140,49 +140,51 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGGING = {
   'version': 1,
-  'disable_existing_loggers': True,
+  'disable_existing_loggers': False,
   'formatters': {
       'simple': {
-            'format': '%(asctime)s %(site)s %(levelname)s %(message)s' #'%(levelname)s %(asctime)s %(name)s.%(funcName)s:%(lineno)s- %(message)s' 
-
+            'format': '%(asctime)-8s %(levelname)-8s %(lineno)d %(module)-8s %(filename)-8s %(funcName)-8s %(name)-8s %(message)-8s '
         },
   },
-  'filters': {  # !
-        'site_filter': {
-            '()': 'stack.log_filters.SiteFilter',
-        }
-    },
   'handlers': {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-            'filters': ['site_filter'],
+            'formatter': 'simple'
+        },
+        'logstash': {
+            'level': 'DEBUG',
+            'class': 'logstash.TCPLogstashHandler',
+            'host': 'localhost',
+            'port': 5959, # Default value: 5959
+            'version': 1, # Version of logstash event schema. Default value: 0 (for backward compatibility of the library)
+            'message_type': 'ELK_DEMO_Application Staging Server',  # 'type' field in logstash message. Default value: 'logstash'.
+            'fqdn': True, # Fully qualified domain name. Default value: false.
+             'tags': ['ELK_DEMO_Application Staging Server'], # list of tags. Default: None.
         },
         'log_file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '/home/faststagingtiavm/elk_demo/stack/logs/file.log',
+            'filename': '/home/fero/workspace/elk_demo/stack/logs/file.log',
             'maxBytes': 1024*1024*15,  # 15MB
             'backupCount': 10,
             'formatter': 'simple',
-            'filters': ['site_filter'],
+
         },
 
   },
   'loggers': {
         'stack': {
-            'handlers': ['log_file','console'],
+            'handlers': ['logstash','log_file','console'],
             'level': 'DEBUG',
-            'propagate': False,
+            'propagate': True,
         },
-        #  'django': {
-        #      'handlers': ['console','log_file','logstash'],
-        #      'propagate': False,
-        #      'level': 'INFO',
-        #  },
-
+         'django': {
+             'handlers': ['console','log_file','logstash'],
+             'propagate': True,
+             'level': 'DEBUG',
+         },
+        
     }
 }
 
-SITE_NAME = "tia_vm"
