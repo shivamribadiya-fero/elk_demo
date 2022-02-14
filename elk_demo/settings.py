@@ -31,7 +31,6 @@ SECRET_KEY = 'django-insecure-d^l%d^pct9fx5)ga@h2-d4tr8_in2stm2zb&*41$x6w4&z7!0y
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-print("hello change")
 
 # Application definition
 
