@@ -18,13 +18,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.8.10"
-    - name: Install dependencies
-      run: source /home/faststagingtiavm/.virtualenvs/elkdemoenv/bin/activate
-    - name: change directory 
-      run: cd ~/elk_demo
-    - name: pull from branch  
-      run: git checkout main
-#   - name: Setup SSH
+  #   - name: Setup SSH
   # You may pin to the exact commit or the version.
   # uses: kielabokkie/ssh-key-and-known-hosts-action@e5c88dc608851beb90a7a78c7d5d2ef6f62f9860
 #  uses: kielabokkie/ssh-key-and-known-hosts-action@v1.2.0
