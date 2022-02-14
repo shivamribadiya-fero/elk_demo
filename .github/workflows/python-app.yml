@@ -1,0 +1,33 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python application
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.8.10"
+    - name: ls -a via ssh
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+       command: ls -a
+       host: ${{ secrets.HOST_IP }}
+       username: faststagingtiavm
+       privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
+
+    #script: |
+     # source /home/faststagingtiavm/.virtualenvs/elkdemoenv/bin/activate
+      #cd ~/elk_demo
+      #git checkout -f 
+     # git pull 
